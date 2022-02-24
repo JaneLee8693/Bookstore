@@ -14,7 +14,7 @@ namespace Bookstore.Infrastructure
             session.SetString(key, JsonSerializer.Serialize(value));
         }
 
-        public Static T GetJson<T> (this Session session, string key)
+        public static T GetJson<T> (this ISession session, string key)
         {
             var sessionData = session.GetString(key);
 
