@@ -23,6 +23,8 @@ namespace Bookstore.Models
             {
                 context.Checkouts.Add(checkout);
             }
+
+            context.SaveChanges();
         }
     }
 }

@@ -9,9 +9,12 @@ namespace Bookstore.Controllers
 {
     public class CheckoutController : Controller
     {
-        public CheckoutController()
+        private ICheckoutRepository repo { get; set; }
+        private Basket basket { get; set; }
+        public CheckoutController(ICheckoutRepository temp, Basket b)
         {
-
+            repo = temp;
+            basket = b;
         }
 
         [HttpGet]
