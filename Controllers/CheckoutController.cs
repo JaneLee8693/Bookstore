@@ -26,9 +26,23 @@ namespace Bookstore.Controllers
         [HttpPost]
         public IActionResult Checkout(Checkout checkout)
         {
+            if (basket.Items.Count() == 0)
+            {
+                ModelState.AddModelError("", "Sorry, your basket is empty!");
+            }
 
+            if (ModelState.IsValid)
+            {
+                checkout.Lines = basket.Items.ToArray();
+                repo.SaveCheckout(checkout);
+                basket.ClearBasket();
+
+                return RedirectToPage("/CheckoutConfirmation");
+            }
+            else
+            {
+                return View();
+            }
         }
-
-
     }
 }
