@@ -9,9 +9,23 @@ namespace Bookstore.Controllers
 {
     public class CheckoutController : Controller
     {
+        public CheckoutController()
+        {
+
+        }
+
+        [HttpGet]
         public IActionResult Checkout()
         {
             return View(new Checkout());
         }
+
+        [HttpPost]
+        public IActionResult Checkout(Checkout checkout)
+        {
+
+        }
+
+
     }
 }
