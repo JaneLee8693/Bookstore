@@ -39,6 +39,6 @@ namespace Bookstore.Models
         public bool Anonymous { get; set; }
 
         [BindNever]
-        public bool PurchaseReceived { get; set; } = false;
+        public bool PurchaseShipped { get; set; } = false;
     }
 }

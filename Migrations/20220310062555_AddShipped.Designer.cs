@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bookstore.Migrations
 {
     [DbContext(typeof(BookstoreContext))]
-    [Migration("20220310012546_AddReceivedField")]
-    partial class AddReceivedField
+    [Migration("20220310062555_AddShipped")]
+    partial class AddShipped
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,7 +108,7 @@ namespace Bookstore.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("PurchaseReceived")
+                    b.Property<bool>("PurchaseShipped")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("State")

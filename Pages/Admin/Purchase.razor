@@ -1,11 +1,11 @@
 ﻿@page "/admin/purchase"
 @inherits OwningComponentBase<ICheckoutRepository>
 
-<PurchaseTable TableTitle="Uncollected Purchase" Checkouts="UncollectedPurchase"
-               ButtonLabel="Collected" PurchaseSelected="ResetPurchase"></PurchaseTable>
+<PurchaseTable TableTitle="Unshipped Purchase" Checkouts="UnshippedPurchase"
+               ButtonLabel="Shipped" PurchaseSelected="CollectPurchase"></PurchaseTable>
 
-<PurchaseTable TableTitle="Collected Purchase" Checkouts="CollectedPurchase"
-               ButtonLabel="Reset" PurchaseSelected="CollectPurchase"></PurchaseTable>
+<PurchaseTable TableTitle="Shipped Purchase" Checkouts="ShippedPurchase"
+               ButtonLabel="Reset" PurchaseSelected="ResetPurchase"></PurchaseTable>
 
 <button class="btn btn-info" @onclick="@(x => UpdateData())">Refresh Data</button>
 
@@ -13,8 +13,8 @@
     public ICheckoutRepository repo => Service;
 
     public IEnumerable<Checkout> AllPurchase { get; set; }
-    public IEnumerable<Checkout> UncollectedPurchase { get; set; }
-    public IEnumerable<Checkout> CollectedPurchase { get; set; }
+    public IEnumerable<Checkout> UnshippedPurchase { get; set; }
+    public IEnumerable<Checkout> ShippedPurchase { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
@@ -24,17 +24,17 @@
     public async Task UpdateData()
     {
         AllPurchase = await repo.Checkouts.ToListAsync();
-        UncollectedPurchase = AllPurchase.Where(x => !x.PurchaseReceived);
-        CollectedPurchase = AllPurchase.Where(x => x.PurchaseReceived);
+        UnshippedPurchase = AllPurchase.Where(x => !x.PurchaseShipped);
+        ShippedPurchase = AllPurchase.Where(x => x.PurchaseShipped);
     }
 
     public void CollectPurchase(int id) => UpdatePurchase(id, true);
     public void ResetPurchase(int id) => UpdatePurchase(id, false);
 
-    public void UpdatePurchase(int id, bool purchased)
+    public void UpdatePurchase(int id, bool shipped)
     {
         Checkout c = repo.Checkouts.FirstOrDefault(x => x.CheckoutId == id);
-        c.PurchaseReceived = purchased;
+        c.PurchaseShipped = shipped;
         repo.SaveCheckout(c);
     }
 }
