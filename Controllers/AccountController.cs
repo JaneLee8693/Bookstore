@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Bookstore.Controllers
 {
-    public class AccountController1 : Controller
+    public class AccountController : Controller
     {
 
         private UserManager<IdentityUser> userManager;
         private SignInManager<IdentityUser> signInManager;
 
-        public AccountController1(UserManager<IdentityUser> um, SignInManager<IdentityUser> sim)
+        public AccountController(UserManager<IdentityUser> um, SignInManager<IdentityUser> sim)
         {
             userManager = um;
             signInManager = sim;
@@ -32,7 +32,7 @@ namespace Bookstore.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await userManager.FindByIdAsync(loginModel.Username);
+                IdentityUser user = await userManager.FindByNameAsync(loginModel.Username);
 
                 if (user != null)
                 {
@@ -48,6 +48,12 @@ namespace Bookstore.Controllers
             ModelState.AddModelError("", "Invalid name or password");
             return View(loginModel);
 
+        }
+
+        public async Task<IActionResult> Logout(string returnUrl = "/")
+        {
+            await signInManager.SignOutAsync();
+            return Redirect(returnUrl);
         }
     }
 }
