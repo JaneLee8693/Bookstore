@@ -12,21 +12,25 @@
 </head>
 <body>
     <div class="bg-dark text-white p-2">
-        <span class="navbar-brand m-lg-2">Admin Login</span>
+        <span class="navbar-brand m-lg-2 font-italic">Admin Login</span>
     </div>
     <div class="m-1 p-1">
         <div  class="text-danger" asp-validation-summary="All"></div>
         <form method="post" asp-controller="Account" asp-action="Login">
             <div class="form-group">
                 <label asp-for="Username">User Name:</label>
-                <input asp-for="Username" class="form-control" />
+                <input asp-for="Username" class="form-control" placeholder="Admin" />
             </div>
             <div class="form-group">
                 <label asp-for="Password">Password:</label>
-                <input asp-for="Password" class="form-control" type="password"/>
+                <input asp-for="Password" class="form-control" type="password" />
+            </div>
+            <br />
+            <div class="alert alert-warning" role="alert">
+                <strong class="text-danger">Warning!</strong> You are going to access the admin system.
             </div>
             <button class="btn btn-primary" type="submit">Log In</button>
-            <input type="hidden" asp-for="ReturnUrl"/>
+            <input type="hidden" asp-for="ReturnUrl" />
 
         </form>
     </div>
